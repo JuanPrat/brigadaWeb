@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "brigadaweb-ff33e": {
+      "hosting": {
+        "brigadaWeb": [
+          "brigadaweb-ff33e"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<div class="flex-container">
+
+    <img src="https://firebasestorage.googleapis.com/v0/b/brigadaweb-ff33e.appspot.com/o/brigadaPoliIcon.png?alt=media&token=86d0573f-432e-4090-bf7a-38e9da086a4d">
+
+    <div class="formulary">
+        <form [formGroup]="form">
+            <div class="form-group">
+                <input type="text" class="form-control" form name="email" formControlName="email" placeholder="Correo">
+                <input type="password" class="form-control" name="password" formControlName="pass" placeholder="Contraseña">
+            </div>
+        </form>
+    </div>
+
+    <div class="buttons">
+        <button class="btn btn-success" (click)="login()">Ingresar</button>
+        <br>
+    </div>
+</div>
