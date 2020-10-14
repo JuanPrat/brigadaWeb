@@ -11,6 +11,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as firebase from 'firebase';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 firebase.initializeApp(environment.firebase)
 
@@ -19,7 +20,8 @@ firebase.initializeApp(environment.firebase)
     AppComponent,
     LoginComponent,
     MainComponent,
-    HorariosComponent
+    HorariosComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

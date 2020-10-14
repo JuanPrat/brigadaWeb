@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { NavbarComponent } from './../navbar/navbar.component';
 
 @Component({
   selector: 'app-main',
@@ -10,9 +10,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private user: UserService, private route:Router) { }
+  constructor(private user: UserService, private route: Router) { }
 
   ngOnInit(): void {
-      
+    if (this.user.user == undefined) {
+      this.route.navigate(["/login"])
     }
   }
+}

@@ -1,2 +1,8 @@
+<div *ngIf="user.user">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+</div>
 
-<router-outlet></router-outlet>
+<div *ngIf="user.user==undefined">
+    <app-login></app-login>
+</div>

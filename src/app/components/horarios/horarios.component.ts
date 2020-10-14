@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   isSameDay,
   isSameMonth,
@@ -18,7 +19,7 @@ export class HorariosComponent implements OnInit {
   events = [];
   activeDayIsOpen: boolean = true;
 
-  constructor(private user: UserService) {
+  constructor(private user: UserService, private route: Router) {
     this.color = {primary: "", secondary: ""}
     this.event = {start: new Date, title: "Ana maria - 8am-1pm", color: this.color}
     this.events.push(this.event)
@@ -27,7 +28,9 @@ export class HorariosComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    if (this.user.user == undefined) {
+      this.route.navigate(["/login"])
+    }
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
