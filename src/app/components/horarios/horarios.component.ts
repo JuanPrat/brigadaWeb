@@ -3,6 +3,7 @@ import {
   isSameDay,
   isSameMonth,
 } from 'date-fns';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-horarios',
   templateUrl: './horarios.component.html',
@@ -17,7 +18,7 @@ export class HorariosComponent implements OnInit {
   events = [];
   activeDayIsOpen: boolean = true;
 
-  constructor() {
+  constructor(private user: UserService) {
     this.color = {primary: "", secondary: ""}
     this.event = {start: new Date, title: "Ana maria - 8am-1pm", color: this.color}
     this.events.push(this.event)
