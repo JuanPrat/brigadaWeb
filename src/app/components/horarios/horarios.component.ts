@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  isSameDay,
-  isSameMonth,
-} from 'date-fns';
+import {isSameDay, isSameMonth} from 'date-fns';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-horarios',
@@ -19,7 +17,7 @@ export class HorariosComponent implements OnInit {
   events = [];
   activeDayIsOpen: boolean = true;
 
-  constructor(private user: UserService, private route: Router) {
+  constructor(private user: UserService, private route: Router, private modalService: NgbModal) {
     this.color = {primary: "", secondary: ""}
     this.event = {start: new Date, title: "Ana maria - 8am-1pm", color: this.color}
     this.events.push(this.event)
@@ -47,7 +45,12 @@ export class HorariosComponent implements OnInit {
     }
   }
 
+  programarme(){
+    this.modalService.open('<p>hola</p>')
+  }
 }
+
+
 
 export interface CalendarEvent<MetaType = any> {
   start: Date;
