@@ -1,0 +1,16 @@
+<div class="flex-container">
+    <h3>Día y hora de disponibilidad</h3>
+    <hr>
+    <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next">
+    </ngb-datepicker>
+    <hr>
+    <label>Hora inicio</label>
+    <ngb-timepicker [(ngModel)]="timeStart" [meridian]="meridian"></ngb-timepicker>
+    <label>Hora fin</label>
+    <ngb-timepicker [(ngModel)]="timeEnd" [meridian]="meridian"></ngb-timepicker>
+    <hr>
+</div>
+<div class="flex-container-buttons">
+    <button class="btn btn-success" (click)="programarDia()">Enviar</button>
+    <button class="btn btn-danger" (click)="close()">Termine</button>
+</div>

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     const email = this.form.controls['email'].value;
     const pass = this.form.controls['pass'].value;
     this.loginService.login(email,pass)
-    .then(answer => { debugger
+    .then(answer => {
       answer === undefined ? Swal.fire({
     icon: 'error',
     title: 'Oops...',
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   procedToMain(answer:any){
-    this.loginService.getUserDB(answer.user.uid)
+    this.loginService.getUserDB(answer.user.uid, answer.user.email)
     .then(ans => this.route.navigate([""]))
   }
 

@@ -14,13 +14,14 @@ export class LoginService {
       .catch(error => {console.log(error)});
   }
 
-  getUserDB(uid:string){
+  getUserDB(uid:string, email:string){
     return firebase.firestore().collection("usuarios").doc(uid).get()
         .then(userDB => {
           this.user.user = {
             nombres: userDB.data().nombres,
             apellidos: userDB.data().apellidos,
-            perfil: userDB.data().perfil
+            perfil: userDB.data().perfil,
+            email: email
           };
         })
   }

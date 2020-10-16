@@ -13,6 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as firebase from 'firebase';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProgramarModalComponent } from './components/horarios/programar-modal/programar-modal.component';
+import {FormsModule} from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
 
 firebase.initializeApp(environment.firebase)
 
@@ -22,7 +25,8 @@ firebase.initializeApp(environment.firebase)
     LoginComponent,
     MainComponent,
     HorariosComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProgramarModalComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,9 @@ firebase.initializeApp(environment.firebase)
     ReactiveFormsModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]
