@@ -1,29 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Brigada Poli</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/horarios">Horarios </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Reportar activos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Perfil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Brigadistas</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<mwl-calendar-month-view
-  [viewDate]="viewDate"
-  [events]="events"
-  [activeDayIsOpen]="activeDayIsOpen"
-  (dayClicked)="dayClicked($event.day)">
-</mwl-calendar-month-view>
+<div class="container">
+  <div class="flex-container">
+      <button class="btn btn-success programarmeButton" (click)="programarme()">Programarme</button>
+  </div>
+  <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)">
+  </mwl-calendar-month-view>
+</div>

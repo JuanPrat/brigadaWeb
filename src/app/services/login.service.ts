@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable, EventEmitter, Output } from '@angular/core'
+import { UserService } from './user.service';
 import * as firebase from 'firebase';
 
 @Injectable({
@@ -7,16 +7,22 @@ import * as firebase from 'firebase';
 })
 export class LoginService {
 
-  constructor(private db:AngularFirestore) { }
+  constructor(private user: UserService) { }
 
-  login(email:string, pass:string){
+  login(email: string, pass: string) {
     return firebase.auth().signInWithEmailAndPassword(email, pass)
-    .catch(error => {console.log(error)})
+      .catch(error => {console.log(error)});
   }
 
-  checkEmailOnBd(email:string){
-    
+  getUserDB(uid:string, email:string){
+    return firebase.firestore().collection("usuarios").doc(uid).get()
+        .then(userDB => {
+          this.user.user = {
+            nombres: userDB.data().nombres,
+            apellidos: userDB.data().apellidos,
+            perfil: userDB.data().perfil,
+            email: email
+          };
+        })
   }
-
-  
 }

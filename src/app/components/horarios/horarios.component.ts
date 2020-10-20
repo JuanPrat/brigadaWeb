@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  isSameDay,
-  isSameMonth,
-} from 'date-fns';
+import { Router } from '@angular/router';
+import { isSameDay, isSameMonth } from 'date-fns';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user.service';
+import { CalendarEvent } from 'angular-calendar';
+import { ProgramarModalComponent } from './programar-modal/programar-modal.component';
+import { nuevaProgramacion, ScheduleService } from 'src/app/services/schedule.service';
+import { EventColor } from './../../models/eventColor';
+import { Programacion } from 'src/app/models/programacion';
 @Component({
   selector: 'app-horarios',
   templateUrl: './horarios.component.html',
@@ -11,29 +16,58 @@ import {
 export class HorariosComponent implements OnInit {
 
   viewDate: Date = new Date();
-  date = new Date();
   event: CalendarEvent;
   color: EventColor;
   events = [];
   activeDayIsOpen: boolean = true;
+  userDatesScheduled: nuevaProgramacion = new nuevaProgramacion();
 
-  constructor() {
-    this.color = {primary: "", secondary: ""}
-    this.event = {start: new Date, title: "Ana maria - 8am-1pm", color: this.color}
-    this.events.push(this.event)
-    this.event = {start: new Date, title: "Emmanuel - 10am-5pm", color: this.color}
-    this.events.push(this.event)
-   }
-
-  ngOnInit(): void {
-    
+  constructor(private user: UserService,
+    private route: Router,
+    private modalService: NgbModal,
+    private scheduleService: ScheduleService) {
+    this.color = { primary: "", secondary: "" }
+    this.scheduleService.readDb()
+      .subscribe(dates => {
+        debugger
+        if (dates !== undefined) {
+          debugger
+          this.userDatesScheduled = dates;
+          this.events = [];
+          this.userDatesScheduled.dates.forEach(eve => {
+            const event = { start: this.toDateTime(eve.start.seconds), title: eve.title, color: this.color }
+            this.events.push(event)
+          })
+        }
+      });
+    // this.
+    // this.events.push(this.event)
+    // this.event = {start: new Date, title: "Emmanuel - 10am-5pm", color: this.color}
+    // this.events.push(this.event)
   }
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  ngOnInit(): void {
+    if (this.user.user == undefined) {
+      this.route.navigate(["/login"])
+    }
+  }
+
+  programarme() {
+    this.modalService.open(ProgramarModalComponent, { size: 'sm' })
+  }
+
+  private toDateTime(secs) {
+    var t = new Date(1970, 0, 1); // Epoch
+    t.setSeconds(secs);
+    return t;
+  }
+
+  dayClicked({ date }: { date: Date }): void {
+    debugger
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
+        this.events.length === 0
       ) {
         this.activeDayIsOpen = false;
       } else {
@@ -43,33 +77,7 @@ export class HorariosComponent implements OnInit {
     }
   }
 
-}
 
-export interface CalendarEvent<MetaType = any> {
-  start: Date;
-  end?: Date;
-  title: string;
-  color: EventColor;
-  actions?: EventAction[];
-  allDay?: boolean;
-  cssClass?: string;
-  resizable?: {
-    beforeStart?: boolean;
-    afterEnd?: boolean;
-  };
-  draggable?: boolean;
-  meta?: MetaType;
-}
-
-export interface EventColor {
-  primary: string;
-  secondary: string;
-}
-
-export interface EventAction {
-  label: string;
-  cssClass?: string;
-  onClick({event}: {event: CalendarEvent}): any;
 }
 
 
