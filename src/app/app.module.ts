@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProgramarModalComponent } from './components/horarios/programar-modal/programar-modal.component';
 import {FormsModule} from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 firebase.initializeApp(environment.firebase)
 
@@ -26,7 +27,8 @@ firebase.initializeApp(environment.firebase)
     MainComponent,
     HorariosComponent,
     NavbarComponent,
-    ProgramarModalComponent
+    ProgramarModalComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

@@ -3,11 +3,10 @@ import { Router } from '@angular/router';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
-import { CalendarEvent } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction } from 'angular-calendar';
 import { ProgramarModalComponent } from './programar-modal/programar-modal.component';
 import { nuevaProgramacion, ScheduleService } from 'src/app/services/schedule.service';
 import { EventColor } from './../../models/eventColor';
-import { Programacion } from 'src/app/models/programacion';
 @Component({
   selector: 'app-horarios',
   templateUrl: './horarios.component.html',
@@ -18,6 +17,15 @@ export class HorariosComponent implements OnInit {
   viewDate: Date = new Date();
   event: CalendarEvent;
   color: EventColor;
+  actions: CalendarEventAction[] = [
+    {
+      label: '<p>Borrar</p>',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        debugger
+        this.scheduleService.deleteSchedule(event.id)
+      },
+    },
+  ];
   events = [];
   activeDayIsOpen: boolean = true;
   userDatesScheduled: nuevaProgramacion = new nuevaProgramacion();
@@ -30,12 +38,17 @@ export class HorariosComponent implements OnInit {
     this.scheduleService.readDb()
       .subscribe(dates => {
         debugger
-        if (dates !== undefined) {
-          debugger
           this.userDatesScheduled = dates;
+          if (this.userDatesScheduled.dates !== undefined) {
           this.events = [];
           this.userDatesScheduled.dates.forEach(eve => {
-            const event = { start: this.toDateTime(eve.start.seconds), title: eve.title, color: this.color }
+            const event = {
+              start: this.toDateTime(eve.start.seconds),
+              title: eve.title,
+              color: this.color,
+              id: eve.id,
+              actions: this.actions
+            }
             this.events.push(event)
           })
         }
@@ -63,7 +76,6 @@ export class HorariosComponent implements OnInit {
   }
 
   dayClicked({ date }: { date: Date }): void {
-    debugger
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
