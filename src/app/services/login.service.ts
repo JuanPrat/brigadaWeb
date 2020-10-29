@@ -18,11 +18,14 @@ export class LoginService {
     return firebase.firestore().collection("usuarios").doc(uid).get()
         .then(userDB => {
           this.user.user = {
+            uid: uid,
             nombres: userDB.data().nombres,
             apellidos: userDB.data().apellidos,
             perfil: userDB.data().perfil,
-            email: email
+            email: email,
+            activo: true
           };
         })
   }
+
 }

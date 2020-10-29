@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {LoginService} from '../../services/login.service';
 import Swal from 'sweetalert2';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,10 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private route:Router) { }
+  constructor(private fb: FormBuilder,
+     private loginService: LoginService,
+      private route:Router,
+      private userService:UserService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -35,7 +39,10 @@ export class LoginComponent implements OnInit {
 
   procedToMain(answer:any){
     this.loginService.getUserDB(answer.user.uid, answer.user.email)
-    .then(ans => this.route.navigate([""]))
+    .then(ans => {
+      this.userService.activateUser()
+      this.route.navigate([""])
+    })
   }
 
 }

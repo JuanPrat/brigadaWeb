@@ -17,6 +17,7 @@ import { ProgramarModalComponent } from './components/horarios/programar-modal/p
 import {FormsModule} from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { BrigadistasComponent } from './components/brigadistas/brigadistas.component';
 
 firebase.initializeApp(environment.firebase)
 
@@ -28,7 +29,8 @@ firebase.initializeApp(environment.firebase)
     HorariosComponent,
     NavbarComponent,
     ProgramarModalComponent,
-    PerfilComponent
+    PerfilComponent,
+    BrigadistasComponent
   ],
   imports: [
     BrowserModule,

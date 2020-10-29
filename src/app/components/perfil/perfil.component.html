@@ -1,1 +1,17 @@
-<p>perfil works!</p>
+<div class="flex-container">
+    <div class="profile_card">
+        <img src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png">
+        <form [formGroup]="form">
+            <input type="text" class="form-control" value="{{this.userServ.user.email}}" formControlName="email"
+                disabled="true">
+            <input type="text" class="form-control" value="{{this.userServ.user.nombres}}" formControlName="names"
+                disabled="true">
+            <input type="text" class="form-control" value="{{this.userServ.user.apellidos}}" formControlName="lastNames"
+                disabled="true">
+            <input type="text" class="form-control" value="{{this.userServ.user.perfil}}" formControlName="perfil"
+                disabled="true">
+        </form>
+        <button *ngIf="!this.editing" (click)="editProfile()" class="btn btn-success">Editar</button>
+        <button *ngIf="this.editing" (click)="editProfile()" class="btn btn-primary">Terminar</button>
+    </div>
+</div>
