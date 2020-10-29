@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   procedToMain(answer:any){
     this.loginService.getUserDB(answer.user.uid, answer.user.email)
     .then(ans => {
-      this.userService.activateUser()
+      this.userService.activateUser(true)
       this.route.navigate([""])
     })
   }

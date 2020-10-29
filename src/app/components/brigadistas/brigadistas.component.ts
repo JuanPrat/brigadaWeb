@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { BrigadistasService } from 'src/app/services/brigadistas.service'
 import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {AgregarBrigadistaComponent} from './agregar-brigadista/agregar-brigadista.component'
 
 @Component({
   selector: 'app-brigadistas',
@@ -12,7 +15,9 @@ export class BrigadistasComponent implements OnInit {
 
   brigadistas: Array<User> = new Array<User>();
 
-  constructor(private userServ: UserService) { }
+  constructor(private userServ: UserService,
+     private brigadistasService: BrigadistasService,
+     private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.userServ.readUsers().then(answer => answer.forEach(doc => this.brigadistas.push({
@@ -23,7 +28,10 @@ export class BrigadistasComponent implements OnInit {
       nombres: doc.data().nombres,
       perfil: doc.data().perfil
     })));
-    console.log(this.brigadistas)
+  }
+
+  agregarBrigadista(){
+    this.modalService.open(AgregarBrigadistaComponent)
   }
 
 }

@@ -18,4 +18,8 @@ export class NavbarComponent implements OnInit {
     this.route.navigate(["horarios"]);
   }
 
+  cerrarSesion(){
+    this.user.activateUser(false);
+  }
+
 }

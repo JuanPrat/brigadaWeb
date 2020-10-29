@@ -11,4 +11,9 @@ export class AppComponent {
 
   constructor(public user:UserService){}
 
+  HandleOnClose(){ 
+    this.user.activateUser(false);
+    this.user.user = undefined;
+  }
+
 }

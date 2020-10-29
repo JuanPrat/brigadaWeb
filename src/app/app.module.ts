@@ -18,6 +18,7 @@ import {FormsModule} from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { BrigadistasComponent } from './components/brigadistas/brigadistas.component';
+import { AgregarBrigadistaComponent } from './components/brigadistas/agregar-brigadista/agregar-brigadista.component';
 
 firebase.initializeApp(environment.firebase)
 
@@ -30,7 +31,8 @@ firebase.initializeApp(environment.firebase)
     NavbarComponent,
     ProgramarModalComponent,
     PerfilComponent,
-    BrigadistasComponent
+    BrigadistasComponent,
+    AgregarBrigadistaComponent
   ],
   imports: [
     BrowserModule,

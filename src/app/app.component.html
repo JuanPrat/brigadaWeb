@@ -1,6 +1,6 @@
 <div *ngIf="user.user">
     <app-navbar></app-navbar>
-    <router-outlet></router-outlet>
+    <router-outlet onunload="HandleOnClose()"></router-outlet>
 </div>
 
 <div *ngIf="user.user==undefined">
