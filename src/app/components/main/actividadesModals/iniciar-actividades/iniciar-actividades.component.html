@@ -1,0 +1,57 @@
+<p>Selecciona que implementos vas a llevar contigo</p>
+<form>
+    <div class="form-check">
+        <input id="input-radio" #inputRadio type="checkbox" class="form-check-input" (radio)="selectOnCheck($event)">
+        <label for="input-radio">Radio</label>
+    </div>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" sortable="name">Radio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let radio of this.radios">
+            <td>{{ radio.nombre}}</td>
+          </tr>
+    </tbody>
+</table>
+<form>
+    <div class="form-check">
+        <input id="input-audifonos" #inputAudifonos type="checkbox" class="form-check-input"
+            (audifonos)="selectOnCheck($event)">
+        <label for="input-audifonos">Audifonos</label>
+    </div>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" sortable="name">Audifono</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let audifono of this.audifonos">
+            <td>{{ audifono.nombre}}</td>
+          </tr>
+    </tbody>
+</table>
+<form>
+    <div class="form-check">
+        <input type="checkbox" id="input-kit" #inputKit class="form-check-input"
+            (kitPrimerosAuxilios)="selectOnCheck($event)">
+        <label for="input-kit">Kit de primeros auxilios</label>
+    </div>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" sortable="name">Kit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let kit of this.kits">
+            <td>{{ kit.nombre}}</td>
+          </tr>
+    </tbody>
+</table>

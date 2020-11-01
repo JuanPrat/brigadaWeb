@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,8 @@ import { AngularFireModule } from '@angular/fire';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { BrigadistasComponent } from './components/brigadistas/brigadistas.component';
 import { AgregarBrigadistaComponent } from './components/brigadistas/agregar-brigadista/agregar-brigadista.component';
+import { IniciarActividadesComponent } from './components/main/actividadesModals/iniciar-actividades/iniciar-actividades.component';
+import { FinalizarActividadesComponent } from './components/main/actividadesModals/finalizar-actividades/finalizar-actividades.component';
 
 firebase.initializeApp(environment.firebase)
 
@@ -32,9 +35,12 @@ firebase.initializeApp(environment.firebase)
     ProgramarModalComponent,
     PerfilComponent,
     BrigadistasComponent,
-    AgregarBrigadistaComponent
+    AgregarBrigadistaComponent,
+    IniciarActividadesComponent,
+    FinalizarActividadesComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

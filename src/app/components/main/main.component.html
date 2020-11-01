@@ -1,4 +1,8 @@
 <div class="flex-container">
+    <button *ngIf="!this.user.user.activo" class="btn btn-success" (click)="activarBrigadista()">Activar</button>
+    <button *ngIf="this.user.user.activo" class="btn btn-danger" (click)="activarBrigadista()">Desactivar</button>
+</div>
+<div class="flex-container">
     <img
         src="https://firebasestorage.googleapis.com/v0/b/brigadaweb-ff33e.appspot.com/o/brigadaPoliIcon.png?alt=media&token=86d0573f-432e-4090-bf7a-38e9da086a4d">
-</div>  
+</div>
