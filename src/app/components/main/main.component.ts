@@ -12,6 +12,7 @@ import { FinalizarActividadesComponent } from './actividadesModals/finalizar-act
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  activo: boolean;
 
   constructor(public user: UserService,
               private route: Router,
@@ -24,7 +25,6 @@ export class MainComponent implements OnInit {
   }
 
   activarBrigadista(){
-    this.user.user.activo = !this.user.user.activo;
-    this.user.user.activo == false ? this.modalService.open(FinalizarActividadesComponent) : this.modalService.open(IniciarActividadesComponent);  
+    !this.user.user.activo == false ? this.modalService.open(FinalizarActividadesComponent) : this.modalService.open(IniciarActividadesComponent);  
   }
 }

@@ -1,7 +1,9 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { ImplementosService } from 'src/app/services/implementos.service';
 import { audifonos, kitPrimerosAuxilios, radio } from '../../../../models/implementos'
+import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -10,11 +12,20 @@ import { audifonos, kitPrimerosAuxilios, radio } from '../../../../models/implem
   styleUrls: ['./iniciar-actividades.component.scss']
 })
 export class IniciarActividadesComponent implements OnInit {
+  @ViewChild('inputAudifonos', { static: true }) inputAudifonos: ElementRef;
+  @ViewChild('inputRadios', { static: true }) inputRadios: ElementRef;
+  @ViewChild('inputKits', { static: true }) inputKits: ElementRef;
   radios: Array<radio> = new Array();
   audifonos: Array<audifonos> = new Array();
   kits: Array<kitPrimerosAuxilios> = new Array();
+  showRadios: boolean = false;
+  showAudifonos: boolean = false;
+  showKits: boolean = false;
+  radioSelected: string;
+  audifonoSelected: string;
+  kitSelected: string;
 
-  constructor(private userService: UserService, private implementosServ: ImplementosService) { }
+  constructor(private userService: UserService, private implementosServ: ImplementosService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.implementosServ.obtenerRadios().then(radiosMetadata => radiosMetadata.forEach(element => {
@@ -37,7 +48,7 @@ export class IniciarActividadesComponent implements OnInit {
         gasa: element.data().gasa,
         isodine: element.data().isodine,
         linterna: element.data().linterna,
-        microporo: element.data().microporo,  
+        microporo: element.data().microporo,
         paletasMadera: element.data().paletasMadera,
         solucionSalina: element.data().solucionSalina,
         tijeras: element.data().tijetas,
@@ -47,12 +58,45 @@ export class IniciarActividadesComponent implements OnInit {
     }))
   }
 
-  selectOnCheck(event){
-  
+  activarTablas() {
+    if (this.inputAudifonos.nativeElement.checked) {
+      this.showAudifonos = true;
+    }
+    else {
+      this.showAudifonos = false;
+    }
+    if (this.inputRadios.nativeElement.checked) {
+      this.showRadios = true;
+    }
+    else {
+      this.showRadios = false;
+    }
+    if (this.inputKits.nativeElement.checked) {
+      this.showKits = true;
+    }
+    else {
+      this.showKits = false;
+    }
   }
 
-  activar(){
-    this.userService.activateUser(true);
-  }
+  activarBrigadista() {
+    debugger
+    if (this.inputAudifonos.nativeElement.checked) {
+      this.implementosServ.actualizarDisponibilidad('audifonos', 'audifonos' + this.audifonoSelected, false)
+    }
+
+    if (this.inputRadios.nativeElement.checked) {
+      this.implementosServ.actualizarDisponibilidad('radios', 'radio' + this.radioSelected, false)
+    }
+
+    if (this.inputKits.nativeElement.checked) {
+      this.implementosServ.actualizarDisponibilidad('kitPrimerosAuxilios', 'kit' + this.kitSelected, false)
+    }
+    this.userService.activateUser(true).then(ans => {
+      Swal.fire({ title: "Haz iniciado tus labores de brigadista" })
+      this.modalService.dismissAll()
+    })
+      .catch(() => Swal.fire({ title: 'ocurrio un error en el incio. por favor intentalo otra vez' }))
+  };
 
 }

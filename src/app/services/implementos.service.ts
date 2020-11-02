@@ -19,4 +19,8 @@ export class ImplementosService {
   obtenerAudifonos(){
     return firebase.firestore().collection('audifonos').get()
   }
+
+  actualizarDisponibilidad(coleccion:string, documento:string, disponible: boolean){
+    firebase.firestore().collection(coleccion).doc(documento).set({disponible: disponible}, {merge: true})
+  }
 }

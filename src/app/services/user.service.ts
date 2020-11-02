@@ -26,7 +26,8 @@ export class UserService {
   }
   
   activateUser(activated: boolean){
-    firestore()
+    this.user.activo = activated;
+    return firestore()
     .collection("usuarios")
     .doc(this.user.uid).set({activo: activated}, {merge:true});
   }

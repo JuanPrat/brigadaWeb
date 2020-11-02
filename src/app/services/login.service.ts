@@ -23,7 +23,7 @@ export class LoginService {
             apellidos: userDB.data().apellidos,
             perfil: userDB.data().perfil,
             email: email,
-            activo: true
+            activo: userDB.data().activo
           };
         })
   }

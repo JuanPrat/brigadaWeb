@@ -19,7 +19,8 @@ export class NavbarComponent implements OnInit {
   }
 
   cerrarSesion(){
-    this.user.activateUser(false);
+    this.user.user = undefined;
+    this.route.navigate(["/login"])
   }
 
 }
