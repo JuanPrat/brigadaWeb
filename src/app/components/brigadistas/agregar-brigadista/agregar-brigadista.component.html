@@ -1,7 +1,14 @@
-<form [formGroup]="this.form">
-    <input class="form-control" type="text" placeholder="correo" formControlName="email">
-    <input class="form-control" type="text" placeholder="pass" formControlName="pass">
-    <input class="form-control" type="text" placeholder="nombres" formControlName="nombres">
-    <input class="form-control" type="text" placeholder="apellidos" formControlName="apellidos">
-    <button class="btn btn-success" (click)="agregarBrigadista()">Agregar</button>
-</form>
+<div class="container">
+    <form [formGroup]="this.form">
+        <label>Correo:</label>
+        <input class="form-control" type="text" placeholder="correo" formControlName="email">
+        <label>contraseña:</label>
+        <input class="form-control" type="text" placeholder="contraseña" formControlName="pass">
+        <label>nombres:</label>
+        <input class="form-control" type="text" placeholder="nombres" formControlName="nombres">
+        <label>apellidos:</label>
+        <input class="form-control" type="text" placeholder="apellidos" formControlName="apellidos">
+        <button class="btn btn-success" (click)="agregarBrigadista()">Agregar</button>
+
+    </form>
+</div>

@@ -1,18 +1,25 @@
-<div class="container">
-    <button class="btn btn-success" (click)="agregarBrigadista()">Agregar Brigadista</button>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col" sortable="name">Brigadista</th>
-                <th scope="col" sortable="area">Activo</th>                
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let brigadista of this.brigadistas">
-                <td>{{ brigadista.nombres + " " +brigadista.apellidos}}</td>
-                <td *ngIf="brigadista.activo === true"><button class="btn btn-success"></button></td>
-                <td *ngIf="brigadista.activo === false"><button class="btn btn-danger"></button></td>
-              </tr>
-        </tbody>
-    </table>
+<div class="flex-container">
+    
+        <button *ngIf="this.userServ.user.perfil == 'BrigadistaLider'" class="btn btn-success"
+            (click)="agregarBrigadista()" id="button-agregar">Agregar Brigadista</button>
+            <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" sortable="name">Brigadista</th>
+                    <th scope="col" sortable="area">Activo</th>
+                    <th scope="col" sortable="area">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let brigadista of this.brigadistas">
+                    <td>{{ brigadista.nombres + " " +brigadista.apellidos}}</td>
+                    <td *ngIf="brigadista.activo === true"><button class="btn btn-success"></button></td>
+                    <td *ngIf="brigadista.activo === false"><button class="btn btn-danger"></button></td>
+                    <td *ngIf="this.userServ.user.perfil == 'BrigadistaLider'"><button class="btn btn-danger"
+                            (click)="this.eliminarBrigadista(brigadista.email)">eliminar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

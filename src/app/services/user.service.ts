@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { DocumentData, QuerySnapshot } from '@angular/fire/firestore';
-import { firestore,auth } from 'firebase';
+import { AngularFirestore} from '@angular/fire/firestore';
+import { firestore } from 'firebase';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { User } from './../models/user';
@@ -8,31 +8,49 @@ import { User } from './../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  user:User;
+  user: User;
 
-  constructor() { }
+  constructor(private db: AngularFirestore) { }
 
-  updateUserData(){
+  updateUserData() {
     firestore().collection('usuarios')
-    .doc(this.user.uid)
-    .set({apellidos: this.user.apellidos, nombres: this.user.nombres, perfil: this.user.perfil, activo:true}, {merge: true})
+      .doc(this.user.email)
+      .set({ apellidos: this.user.apellidos, nombres: this.user.nombres, perfil: this.user.perfil, activo: this.user.activo }, { merge: true })
   }
 
-  createUser(uid, nombres, apellidos, perfil){
-    firestore().collection('usuarios')
-    .doc(uid)
-    .set({apellidos: apellidos, nombres: nombres, perfil: perfil, activo:false})
-    .then(ans => Swal.fire({text: 'Brigadista creado exitosamente'}))
+  createUser(correo, nombres, apellidos, perfil) {
+    firestore().collection('usuarios').doc(correo).get().then(data => {
+      if (data = undefined) {
+        firestore().collection('usuarios')
+          .doc(correo)
+          .set({ apellidos: apellidos, nombres: nombres, perfil: perfil, activo: false, email: correo, habilitado: true })
+          .then(ans => Swal.fire({ text: 'Brigadista creado exitosamente' }))
+      }
+      else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ya hay un correo registrado igual al ingresado',
+          })
+      }
+    })
+
   }
-  
-  activateUser(activated: boolean){
+
+  activateUser(activated: boolean) {
     this.user.activo = activated;
     return firestore()
-    .collection("usuarios")
-    .doc(this.user.uid).set({activo: activated}, {merge:true});
+      .collection("usuarios")
+      .doc(this.user.email).set({ activo: activated }, { merge: true });
   }
 
-  readUsers(){
-    return firestore().collection('usuarios').get();
+  readUsers(): Observable<any> {
+    return this.db.collection('usuarios').valueChanges()
   }
+
+  deleteUser(email): Promise<any> {
+    return this.db.collection('usuarios').doc(email).set({ habilitado: false }, { merge: true })
+  }
+
+
 }

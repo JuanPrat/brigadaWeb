@@ -4,6 +4,7 @@ import { audifonos, kitPrimerosAuxilios, radio } from 'src/app/models/implemento
 import { ImplementosService } from 'src/app/services/implementos.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+import { ReporteKitComponent } from '../reporte-kit/reporte-kit.component';
 
 @Component({
   selector: 'app-finalizar-actividades',
@@ -43,7 +44,7 @@ export class FinalizarActividadesComponent implements OnInit {
     }))
     this.implementosServ.obtenerKits().then(Metadata => Metadata.forEach(element => {
       this.kits.push({
-        algodón: element.data().algodón,
+        algodon: element.data().algodon,
         curas: element.data().curas,
         fosforos: element.data().fosforos,
         gasa: element.data().gasa,
@@ -94,7 +95,11 @@ export class FinalizarActividadesComponent implements OnInit {
     }
     this.userService.activateUser(false).then(ans => {
       Swal.fire({ title: "Haz finalizado tus labores de brigadista" })
-      this.modalService.dismissAll()
+      this.modalService.dismissAll();
+      if(this.kitSelected != undefined){
+        ReporteKitComponent.prototype.kit = 'kit'+this.kitSelected
+        this.modalService.open(ReporteKitComponent, {centered: true})
+      }
     })
       .catch(() => Swal.fire({ title: 'ocurrio un error en el incio. por favor intentalo otra vez' }))
   };

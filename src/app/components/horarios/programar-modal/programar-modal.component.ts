@@ -4,6 +4,7 @@ import { nuevaProgramacion, ScheduleService } from './../../../services/schedule
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct';
 import { Observable } from 'rxjs';
 import { Programacion } from './../../../models/programacion';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-programar-modal',
@@ -20,10 +21,11 @@ export class ProgramarModalComponent implements OnInit {
   meridian = true;
   datesScheduled: nuevaProgramacion = new nuevaProgramacion();
 
-  constructor(private calendar: NgbCalendar, private scheduleService: ScheduleService, private modalService: NgbModal) { }
+  constructor(private calendar: NgbCalendar, private scheduleService: ScheduleService,
+     private modalService: NgbModal, private user: UserService) { }
 
   ngOnInit(): void {
-    this.scheduleService.readDb().subscribe(dates => {
+    this.scheduleService.readDBWithEmail(this.user.user.email).subscribe(dates => {
       if (dates !== undefined) {
         this.datesScheduled = dates;
       }
@@ -39,7 +41,7 @@ export class ProgramarModalComponent implements OnInit {
     let hourBegin = this.lessThanNine(this.timeStart.hour) + ":" + this.lessThanNine(this.timeStart.minute)
     let hourEnd = this.lessThanNine(this.timeEnd.hour) + ":" + this.lessThanNine(this.timeEnd.minute)
     let hours = hourBegin + " - " + hourEnd;
-    this.scheduleService.scheduleDay(new Date(this.model.year, this.model.month-1, this.model.day), hours, this.datesScheduled)
+    this.scheduleService.scheduleDay(new Date(this.model.year, this.model.month-1, this.model.day), hours, this.datesScheduled, this.user.user.email)
   }
 
   lessThanNine(number) {

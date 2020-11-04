@@ -30,7 +30,7 @@ export class AgregarBrigadistaComponent implements OnInit {
     this.brigadistaServ.agregarBrigadista(this.form.controls['email'].value,this.form.controls['pass'].value)
     .then(ans => {
       this.modalService.dismissAll()
-      this.userService.createUser(ans.user.uid, this.form.controls['nombres'].value, this.form.controls['apellidos'].value, "Brigadista")
+      this.userService.createUser(this.form.controls['email'].value, this.form.controls['nombres'].value, this.form.controls['apellidos'].value, "Brigadista")
     });
 
   }

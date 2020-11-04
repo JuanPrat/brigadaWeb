@@ -11,14 +11,13 @@ import { Programacion } from '../models/programacion';
 export class ScheduleService {
   constructor(private user: UserService, private db: AngularFirestore) { }
 
-  scheduleDay(start, hours, datesScheduled: nuevaProgramacion) {
-    debugger
+  scheduleDay(start, hours, datesScheduled: nuevaProgramacion, email:string) {
     if (datesScheduled.dates === undefined) {
       datesScheduled = new nuevaProgramacion();
     }
     let usuarioNombre = this.user.user.nombres + " " + this.user.user.apellidos;
     let title = usuarioNombre + " - " + hours
-    datesScheduled.dates.push(new Programacion(start, title, Date.now()));
+    datesScheduled.dates.push(new Programacion(start, title, Date.now(), email));
     const things = datesScheduled.dates.map((prog) => Object.assign({}, prog));
     const object: nuevaProgramacion = {
       dates: things
@@ -27,11 +26,15 @@ export class ScheduleService {
   }
 
   readDb(): Observable<any> {
-    return this.db.collection('programacion').doc(this.user.user.email).valueChanges();
+    return this.db.collection('programacion').valueChanges();
   }
 
-  deleteSchedule(id: string | number) {
-    this.db.collection('programacion').doc(this.user.user.email).get().toPromise().then(array => {
+  readDBWithEmail(email:string): Observable<any>{
+    return this.db.collection('programacion').doc(email).valueChanges();
+  }
+
+  deleteSchedule(id: string | number, email) {
+    this.db.collection('programacion').doc(email).get().toPromise().then(array => {
       const dates = array.data().dates.filter(date => date.id != id);
       const things = dates.map((prog) => Object.assign({}, prog));
       const object: nuevaProgramacion = {

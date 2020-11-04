@@ -5,4 +5,5 @@ export interface User {
     perfil:string;
     email:string;
     activo:boolean;
+    habilitado:boolean;
 }

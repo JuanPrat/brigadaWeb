@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter, Output } from '@angular/core'
 import { UserService } from './user.service';
 import * as firebase from 'firebase';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +16,17 @@ export class LoginService {
   }
 
   getUserDB(uid:string, email:string){
-    return firebase.firestore().collection("usuarios").doc(uid).get()
+    return firebase.firestore().collection("usuarios").doc(email).get()
         .then(userDB => {
+          debugger
           this.user.user = {
             uid: uid,
             nombres: userDB.data().nombres,
             apellidos: userDB.data().apellidos,
             perfil: userDB.data().perfil,
             email: email,
-            activo: userDB.data().activo
+            activo: userDB.data().activo,
+            habilitado: userDB.data().habilitado
           };
         })
   }

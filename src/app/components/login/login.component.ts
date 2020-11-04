@@ -40,8 +40,18 @@ export class LoginComponent implements OnInit {
   procedToMain(answer:any){
     this.loginService.getUserDB(answer.user.uid, answer.user.email)
     .then(ans => {
-      this.route.navigate([""])
+      this.userService.user.habilitado ? this.route.navigate([""]) : this.returnLogin()
     })
+  }
+
+  returnLogin(){
+     Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No estas habilitado para ingresar',
+      })
+      this.userService.user = undefined;
+    this.route.navigate(["login"])
   }
 
 }

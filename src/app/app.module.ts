@@ -22,6 +22,8 @@ import { BrigadistasComponent } from './components/brigadistas/brigadistas.compo
 import { AgregarBrigadistaComponent } from './components/brigadistas/agregar-brigadista/agregar-brigadista.component';
 import { IniciarActividadesComponent } from './components/main/actividadesModals/iniciar-actividades/iniciar-actividades.component';
 import { FinalizarActividadesComponent } from './components/main/actividadesModals/finalizar-actividades/finalizar-actividades.component';
+import { ReporteKitComponent } from './components/main/actividadesModals/reporte-kit/reporte-kit.component';
+import { InformesComponent } from './components/informes/informes.component';
 
 firebase.initializeApp(environment.firebase)
 
@@ -37,7 +39,9 @@ firebase.initializeApp(environment.firebase)
     BrigadistasComponent,
     AgregarBrigadistaComponent,
     IniciarActividadesComponent,
-    FinalizarActividadesComponent
+    FinalizarActividadesComponent,
+    ReporteKitComponent,
+    InformesComponent
   ],
   imports: [
     CommonModule,

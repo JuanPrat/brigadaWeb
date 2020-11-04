@@ -42,7 +42,7 @@ export class IniciarActividadesComponent implements OnInit {
     }))
     this.implementosServ.obtenerKits().then(Metadata => Metadata.forEach(element => {
       this.kits.push({
-        algodón: element.data().algodón,
+        algodon: element.data().algodon,
         curas: element.data().curas,
         fosforos: element.data().fosforos,
         gasa: element.data().gasa,
@@ -90,7 +90,7 @@ export class IniciarActividadesComponent implements OnInit {
     }
 
     if (this.inputKits.nativeElement.checked) {
-      this.implementosServ.actualizarDisponibilidad('kitPrimerosAuxilios', 'kit' + this.kitSelected, false)
+      this.implementosServ.actualizarDisponibilidad('kitsPrimerosAuxilios', 'kit' + this.kitSelected, false)
     }
     this.userService.activateUser(true).then(ans => {
       Swal.fire({ title: "Haz iniciado tus labores de brigadista" })

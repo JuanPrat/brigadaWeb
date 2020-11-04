@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { BrigadistasService } from 'src/app/services/brigadistas.service'
-import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {AgregarBrigadistaComponent} from './agregar-brigadista/agregar-brigadista.component'
+import { AgregarBrigadistaComponent } from './agregar-brigadista/agregar-brigadista.component'
 
 @Component({
   selector: 'app-brigadistas',
@@ -15,23 +14,36 @@ export class BrigadistasComponent implements OnInit {
 
   brigadistas: Array<User> = new Array<User>();
 
-  constructor(private userServ: UserService,
-     private brigadistasService: BrigadistasService,
-     private modalService: NgbModal) { }
+  constructor(public userServ: UserService,
+    private brigadistasService: BrigadistasService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.userServ.readUsers().then(answer => answer.forEach(doc => this.brigadistas.push({
-      uid: doc.data().uid,
-      activo: doc.data().activo,
-      apellidos: doc.data().apellidos,
-      email: "",
-      nombres: doc.data().nombres,
-      perfil: doc.data().perfil
-    })));
+    this.userServ.readUsers().subscribe(answer => {
+      this.brigadistas = [];
+      answer.forEach(user => {
+        if (user.habilitado) {
+          this.brigadistas.push({
+            uid: user.uid,
+            activo: user.activo,
+            apellidos: user.apellidos,
+            email: user.email,
+            nombres: user.nombres,
+            perfil: user.perfil,
+            habilitado: user.habilitado
+          })
+        }
+      })
+    });
   }
 
-  agregarBrigadista(){
+  agregarBrigadista() {
     this.modalService.open(AgregarBrigadistaComponent)
+  }
+
+  eliminarBrigadista(email: string) {
+    debugger
+    this.userServ.deleteUser(email);
   }
 
 }

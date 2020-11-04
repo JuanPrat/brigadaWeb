@@ -19,10 +19,9 @@ export class HorariosComponent implements OnInit {
   color: EventColor;
   actions: CalendarEventAction[] = [
     {
-      label: '<p>Borrar</p>',
+      label: '<button class="btn btn-danger">Borrar</button>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        debugger
-        this.scheduleService.deleteSchedule(event.id)
+        this.scheduleService.deleteSchedule(event.id, event.email)
       },
     },
   ];
@@ -36,27 +35,41 @@ export class HorariosComponent implements OnInit {
     private scheduleService: ScheduleService) {
     this.color = { primary: "", secondary: "" }
     this.scheduleService.readDb()
-      .subscribe(dates => {
+      .subscribe(users => {
         debugger
-          this.userDatesScheduled = dates;
-          if (this.userDatesScheduled.dates !== undefined) {
+        if (users !== undefined) {
           this.events = [];
-          this.userDatesScheduled.dates.forEach(eve => {
-            const event = {
-              start: this.toDateTime(eve.start.seconds),
-              title: eve.title,
-              color: this.color,
-              id: eve.id,
-              actions: this.actions
+          users.forEach(user => {
+            user.dates.forEach(date => {
+              debugger
+              if(date.email == this.user.user.email){
+              const event = {
+                start: this.toDateTime(date.start.seconds),
+                title: date.title,
+                color: this.color,
+                id: date.id,
+                actions: this.actions,
+                email: date.email
+              }
+              this.events.push(event)
             }
-            this.events.push(event)
+            else {
+              debugger
+              const event = {
+                start: this.toDateTime(date.start.seconds),
+                title: date.title,
+                color: this.color,
+                id: date.id,
+                email: date.email
+              }
+              this.events.push(event)
+            }
+              
+            })
           })
         }
       });
-    // this.
-    // this.events.push(this.event)
-    // this.event = {start: new Date, title: "Emmanuel - 10am-5pm", color: this.color}
-    // this.events.push(this.event)
+
   }
 
   ngOnInit(): void {

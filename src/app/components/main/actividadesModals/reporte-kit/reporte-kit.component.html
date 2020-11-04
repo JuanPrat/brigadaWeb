@@ -1,0 +1,58 @@
+<div class="flex-container">
+<h5>reporta el estado final de tu kit</h5>
+<form [formGroup]="this.form">
+    <label>Cantidad de algodón</label>
+    <select class="form-control" name="algodon" formControlName="algodon">
+        <option value="1">Bajo</option>
+        <option value="2">Medio</option>
+        <option value="3">Normal</option>
+    </select>
+    <label>Cantidad de curas</label>
+    <select class="form-control" name="curas" formControlName="curas">  
+        <option value="1">Bajo</option>
+        <option value="2">Medio</option>
+        <option value="3">Normal</option>
+    </select>
+    <label>Cantidad de fósforos</label>
+    <select class="form-control" name="fosforos" formControlName="fosforos">
+        <option value="1">Bajo</option>
+        <option value="2">Medio</option>
+        <option value="3">Normal</option>
+    </select>
+    <label>Cantidad de gasa</label>
+    <select class="form-control" name="gasa" formControlName="gasas">
+        <option value="1">Bajo</option>
+        <option value="2">Medio</option>
+        <option value="3">Normal</option>
+    </select>
+    <label>Estado de la linterna</label>
+    <select class="form-control" name="linterna" formControlName="linterna">
+        <option value=true>Buen estado</option>
+        <option value=false>Mal estado</option>
+    </select>
+    <label>Cantidad de microporo</label>
+    <select class="form-control" name="microporo" formControlName="microporo">
+        <option value="1">Bajo</option>
+        <option value="2">Medio</option>
+        <option value="3">Normal</option>
+    </select>
+    <label>Cantidad de paletas de madera</label>
+    <select class="form-control" name="paletas de madera" formControlName="paletasMadera">
+        <option value="1">Bajo</option>
+        <option value="2">Medio</option>
+        <option value="3">Normal</option>
+    </select>
+    <label>Cantidad de solución salina</label>
+    <select class="form-control" name="solucionSalina" formControlName="solucionSalina">    
+        <option value="1">Bajo</option>
+        <option value="2">Medio</option>
+        <option value="3">Normal</option>
+    </select>
+    <label>Estado de las tijeras</label>
+    <select class="form-control" name="tijeras" formControlName="tijeras">        
+        <option value=true>Buen estado</option>
+        <option value=false>Mal estado</option>
+    </select>
+</form>
+<button class="btn btn-success" (click)="reportarKit()">Reportar estado</button>
+</div>
