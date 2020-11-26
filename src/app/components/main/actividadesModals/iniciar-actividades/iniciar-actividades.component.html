@@ -1,5 +1,5 @@
 <div class="flex-container">
-    <h5>Selecciona que implementos vas a llevar contigo</h5>
+    <h5>Implementos que vas a llevar contigo</h5>
     <form>
         <div class="form-check">
             <input id="input-radio" #inputRadios type="checkbox" class="form-check-input" (click)="activarTablas()">
@@ -11,19 +11,16 @@
             <tr>
                 <th scope="col" sortable="name">Radio</th>
                 <th scope="col" sortable="name">Disponibilidad</th>
+                <th scope="col" sortable="name">En uso por</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let radio of this.radios; index as inx">
                 <td>{{ radio.nombre}}</td>
-                <div *ngIf="radio.disponible">
-                    <td>Disponible</td>
-                    <td><input type="radio" (click)="this.radioSelected = inx+1"></td>
-                </div>
-                <div *ngIf="!radio.disponible">
-                    <td>No Disponible</td>
-                    <td><input type="radio" [disabled]="true" (click)="this.radioSelected = inx+1"></td>
-                </div>
+                <td *ngIf="radio.disponible">Disponible</td>
+                <td *ngIf="!radio.disponible">No Disponible</td>
+                <td>{{radio.brigadista}}</td>
+                <td><input type="radio" [disabled]="!radio.disponible" (click)="this.radioSelected = inx+1"></td>
             </tr>
         </tbody>
     </table>
@@ -40,19 +37,17 @@
             <tr>
                 <th scope="col" sortable="name">Audifono</th>
                 <th scope="col" sortable="name">Disponibilidad</th>
+                <th scope="col" sortable="name">En uso por</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let audifono of this.audifonos; index as inx">
                 <td>{{ audifono.nombre}}</td>
-                <div *ngIf="audifono.disponible">
-                    <td>Disponible</td>
-                    <td><input type="radio" (click)="this.audifonoSelected = inx+1"></td>
-                </div>
-                <div *ngIf="!audifono.disponible">
-                    <td>No Disponible</td>
-                    <td><input type="radio" [disabled]="true" (click)="this.audifonoSelected = inx+1"></td>
-                </div>
+                <td *ngIf="audifono.disponible">Disponible</td>
+                <td *ngIf="!audifono.disponible">No Disponible</td>
+                <td>{{audifono.brigadista}}</td>
+                <td><input type="radio" [disabled]="!audifono.disponible" (click)="this.audifonoSelected = inx+1"></td>
+
             </tr>
         </tbody>
     </table>
@@ -69,19 +64,16 @@
             <tr>
                 <th scope="col" sortable="name">Kit</th>
                 <th scope="col" sortable="name">Disponibilidad</th>
+                <th scope="col" sortable="name">En uso por</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let kit of this.kits; index as inx">
                 <td>{{ kit.nombre}}</td>
-                <div *ngIf="kit.disponible">
-                    <td>Disponible</td>
-                    <td><input type="radio" (click)="this.kitSelected = inx+1"></td>
-                </div>
-                <div *ngIf="!kit.disponible">
-                    <td>No Disponible</td>
-                    <td><input type="radio" [disabled]="true" (click)="this.kitSelected = inx+1"></td>
-                </div>
+                <td *ngIf="kit.disponible">Disponible</td>
+                <td *ngIf="!kit.disponible">No Disponible</td>
+                <td>{{kit.brigadista}}</td>
+                <td><input type="radio" [disabled]="!kit.disponible" (click)="this.kitSelected = inx+1"></td>
             </tr>
         </tbody>
     </table>

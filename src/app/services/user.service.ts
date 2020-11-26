@@ -20,7 +20,8 @@ export class UserService {
 
   createUser(correo, nombres, apellidos, perfil) {
     firestore().collection('usuarios').doc(correo).get().then(data => {
-      if (data = undefined) {
+      debugger
+      if (data != undefined) {
         firestore().collection('usuarios')
           .doc(correo)
           .set({ apellidos: apellidos, nombres: nombres, perfil: perfil, activo: false, email: correo, habilitado: true })

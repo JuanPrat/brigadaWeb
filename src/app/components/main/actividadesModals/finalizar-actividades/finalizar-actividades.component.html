@@ -11,6 +11,7 @@
             <tr>
                 <th scope="col" sortable="name">Radio</th>
                 <th scope="col" sortable="name">Disponibilidad</th>
+                <th scope="col" sortable="name">En uso por</th>
             </tr>
         </thead>
         <tbody>
@@ -18,7 +19,9 @@
                 <td>{{ radio.nombre}}</td>
                 <td *ngIf="radio.disponible">Disponible</td>
                 <td *ngIf="!radio.disponible">No Disponible</td>
-                <td><input type="radio" (click)="this.radioSelected = inx+1"></td>
+                <td>{{radio.brigadista}}</td>
+                <td><input type="radio" [disabled]="sameUser(radio.brigadista)" (click)="this.radioSelected = inx+1">
+                </td>
             </tr>
         </tbody>
     </table>
@@ -35,6 +38,7 @@
             <tr>
                 <th scope="col" sortable="name">Audifono</th>
                 <th scope="col" sortable="name">Disponibilidad</th>
+                <th scope="col" sortable="name">En uso por</th>
             </tr>
         </thead>
         <tbody>
@@ -42,7 +46,12 @@
                 <td>{{ audifono.nombre}}</td>
                 <td *ngIf="audifono.disponible">Disponible</td>
                 <td *ngIf="!audifono.disponible">No Disponible</td>
-                <td><input type="radio" (click)="this.audifonoSelected = inx+1"></td>
+                <td>{{audifono.brigadista}}</td>
+                <td>
+                    <fieldset [disabled]="sameUser(audifono.brigadista)">
+                        <input type="radio" (click)="this.audifonoSelected = inx+1">
+                    </fieldset>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -59,6 +68,7 @@
             <tr>
                 <th scope="col" sortable="name">Kit</th>
                 <th scope="col" sortable="name">Disponibilidad</th>
+                <th scope="col" sortable="name">En uso por</th>
             </tr>
         </thead>
         <tbody>
@@ -66,7 +76,8 @@
                 <td>{{ kit.nombre}}</td>
                 <td *ngIf="kit.disponible">Disponible</td>
                 <td *ngIf="!kit.disponible">No Disponible</td>
-                <td><input type="radio" (click)="this.kitSelected = inx+1"></td>
+                <td>{{kit.brigadista}}</td>
+                <td><input type="radio" [disabled]="sameUser(kit.brigadista)" (click)="this.kitSelected = inx+1"></td>
             </tr>
         </tbody>
     </table>

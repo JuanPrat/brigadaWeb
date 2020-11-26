@@ -11,14 +11,17 @@ export interface kitPrimerosAuxilios {
     paletasMadera: 0;
     solucionSalina: 0;
     tijeras: true;
+    brigadista: String;
 }
 
 export interface audifonos {
     nombre:string;
     disponible: false;
+    brigadista: String;
 }
 
 export interface radio{
     nombre:string;
     disponible: false;
+    brigadista: String;
 }

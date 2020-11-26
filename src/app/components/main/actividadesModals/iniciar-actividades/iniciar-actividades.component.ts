@@ -31,13 +31,15 @@ export class IniciarActividadesComponent implements OnInit {
     this.implementosServ.obtenerRadios().then(radiosMetadata => radiosMetadata.forEach(element => {
       this.radios.push({
         nombre: element.data().nombre,
-        disponible: element.data().disponible
+        disponible: element.data().disponible,
+        brigadista: element.data().brigadista
       })
     }))
     this.implementosServ.obtenerAudifonos().then(Metadata => Metadata.forEach(element => {
       this.audifonos.push({
         nombre: element.data().nombre,
-        disponible: element.data().disponible
+        disponible: element.data().disponible,
+        brigadista: element.data().brigadista
       })
     }))
     this.implementosServ.obtenerKits().then(Metadata => Metadata.forEach(element => {
@@ -53,7 +55,8 @@ export class IniciarActividadesComponent implements OnInit {
         solucionSalina: element.data().solucionSalina,
         tijeras: element.data().tijetas,
         nombre: element.data().nombre,
-        disponible: element.data().disponible
+        disponible: element.data().disponible,
+        brigadista: element.data().brigadista
       })
     }))
   }
@@ -81,16 +84,16 @@ export class IniciarActividadesComponent implements OnInit {
 
   activarBrigadista() {
     debugger
-    if (this.inputAudifonos.nativeElement.checked) {
-      this.implementosServ.actualizarDisponibilidad('audifonos', 'audifonos' + this.audifonoSelected, false)
+    if (this.audifonoSelected !== undefined) {
+      this.implementosServ.actualizarDisponibilidad('audifonos', 'audifonos' + this.audifonoSelected, false, this.userService.user.nombres + " " + this.userService.user.apellidos)
     }
-
-    if (this.inputRadios.nativeElement.checked) {
-      this.implementosServ.actualizarDisponibilidad('radios', 'radio' + this.radioSelected, false)
+    debugger
+    if (this.radioSelected !== undefined) {
+      this.implementosServ.actualizarDisponibilidad('radios', 'radio' + this.radioSelected, false, this.userService.user.nombres + " " + this.userService.user.apellidos)
     }
-
-    if (this.inputKits.nativeElement.checked) {
-      this.implementosServ.actualizarDisponibilidad('kitsPrimerosAuxilios', 'kit' + this.kitSelected, false)
+    debugger
+    if (this.kitSelected !== undefined) {
+      this.implementosServ.actualizarDisponibilidad('kitsPrimerosAuxilios', 'kit' + this.kitSelected, false, this.userService.user.nombres + " " + this.userService.user.apellidos)
     }
     this.userService.activateUser(true).then(ans => {
       Swal.fire({ title: "Haz iniciado tus labores de brigadista" })

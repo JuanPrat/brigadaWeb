@@ -26,20 +26,22 @@ export class FinalizarActividadesComponent implements OnInit {
   audifonoSelected: string;
   kitSelected: string;
 
-  constructor(private userService: UserService, private implementosServ: ImplementosService, private modalService: NgbModal) { } 
+  constructor(private userService: UserService, private implementosServ: ImplementosService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    
+
     this.implementosServ.obtenerRadios().then(radiosMetadata => radiosMetadata.forEach(element => {
       this.radios.push({
         nombre: element.data().nombre,
-        disponible: element.data().disponible
+        disponible: element.data().disponible,
+        brigadista: element.data().brigadista
       })
     }))
     this.implementosServ.obtenerAudifonos().then(Metadata => Metadata.forEach(element => {
       this.audifonos.push({
         nombre: element.data().nombre,
-        disponible: element.data().disponible
+        disponible: element.data().disponible,
+        brigadista: element.data().brigadista
       })
     }))
     this.implementosServ.obtenerKits().then(Metadata => Metadata.forEach(element => {
@@ -55,7 +57,8 @@ export class FinalizarActividadesComponent implements OnInit {
         solucionSalina: element.data().solucionSalina,
         tijeras: element.data().tijetas,
         nombre: element.data().nombre,
-        disponible: element.data().disponible
+        disponible: element.data().disponible,
+        brigadista: element.data().brigadista
       })
     }))
   }
@@ -82,28 +85,40 @@ export class FinalizarActividadesComponent implements OnInit {
   }
 
   desactivarBrigadista() {
-    if (this.inputAudifonos.nativeElement.checked) {
-      this.implementosServ.actualizarDisponibilidad('audifonos', 'audifonos' + this.audifonoSelected, true)
+    debugger
+    if (this.audifonoSelected !== undefined) {
+      this.implementosServ.actualizarDisponibilidad('audifonos', 'audifonos' + this.audifonoSelected, true, "")
     }
 
-    if (this.inputRadios.nativeElement.checked) {
-      this.implementosServ.actualizarDisponibilidad('radios', 'radio' + this.radioSelected, true)
+    if (this.radioSelected !== undefined) {
+      this.implementosServ.actualizarDisponibilidad('radios', 'radio' + this.radioSelected, true, "")
     }
 
-    if (this.inputKits.nativeElement.checked) {
-      this.implementosServ.actualizarDisponibilidad('kitPrimerosAuxilios', 'kit' + this.kitSelected, true)
+    if (this.kitSelected !== undefined) {
+      this.implementosServ.actualizarDisponibilidad('kitPrimerosAuxilios', 'kit' + this.kitSelected, true, "")
     }
     this.userService.activateUser(false).then(ans => {
       Swal.fire({ title: "Haz finalizado tus labores de brigadista" })
       this.modalService.dismissAll();
-      if(this.kitSelected != undefined){
-        ReporteKitComponent.prototype.kit = 'kit'+this.kitSelected
-        this.modalService.open(ReporteKitComponent, {centered: true})
+      if (this.kitSelected != undefined) {
+        ReporteKitComponent.prototype.kit = 'kit' + this.kitSelected
+        this.modalService.open(ReporteKitComponent, { centered: true })
       }
     })
       .catch(() => Swal.fire({ title: 'ocurrio un error en el incio. por favor intentalo otra vez' }))
   };
 
-  
+  sameUser(enUsoBrigadista) {
+    debugger
+    if (enUsoBrigadista !== undefined && enUsoBrigadista !== "") {
+      let user = this.userService.user.nombres + " " + this.userService.user.apellidos;
+      return !Object.is(enUsoBrigadista, user)
+    }
+    else {
+      return true;
+    }
+  }
+
+
 
 }
