@@ -69,6 +69,10 @@ export class InformesComponent implements OnInit {
       case (true):
         return "Disponible"
         break;
+      case (false):
+        return "No Disponible"
+        break;
+
       default:
         return value.toString();
         break;
